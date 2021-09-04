@@ -30,6 +30,45 @@ time.sleep(2.0)
 # start the FPS counter
 fps = FPS().start()
 
+def findEncodings(images):
+    encodeList = []
+
+
+    for img in images:
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        encode = face_recognition.face_encodings(img)[0]
+        encodeList.append(encode)
+    return encodeList
+
+encodeListKnown = findEncodings(images)
+print('Encoding Complete')
+
+# ----------
+
+# construct the argument parser and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-f", "--face", type=str,
+	default="face_detector",
+	help="path to face detector model directory")
+ap.add_argument("-m", "--model", type=str,
+	default="mask_detector.model",
+	help="path to trained face mask detector model")
+ap.add_argument("-c", "--confidence", type=float, default=0.5,
+	help="minimum probability to filter weak detections")
+args = vars(ap.parse_args())
+
+# load our serialized face detector model from disk
+print("[INFO] loading face detector model...")
+print(args["face"])
+prototxtPath = os.path.sep.join([args["face"], "deploy.prototxt"])
+weightsPath = os.path.sep.join([args["face"],
+	"res10_300x300_ssd_iter_140000.caffemodel"])
+faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
+
+# load the face mask detector model from disk
+print("[INFO] loading face mask detector model...")
+maskNet = load_model(args["model"])
+
 def detect_and_predict_mask(frame, faceNet, maskNet):
 	# grab the dimensions of the frame and then construct a blob
 	# from it
