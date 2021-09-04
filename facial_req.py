@@ -1,6 +1,9 @@
 #! /usr/bin/python
 
 # import the necessary packages
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.keras.models import load_model
 from imutils.video import VideoStream
 from imutils.video import FPS
 import face_recognition
@@ -8,6 +11,8 @@ import imutils
 import pickle
 import time
 import cv2
+import os
+import argparse
 
 #Initialize 'currentname' to trigger only when a new person is identified.
 currentname = "unknown"
@@ -40,7 +45,7 @@ def findEncodings(images):
         encodeList.append(encode)
     return encodeList
 
-encodeListKnown = findEncodings(images)
+# encodeListKnown = findEncodings(images)
 print('Encoding Complete')
 
 # ----------
@@ -145,6 +150,33 @@ while True:
 	encodings = face_recognition.face_encodings(frame, boxes)
 	names = []
 	(locs, preds) = detect_and_predict_mask(frame, faceNet, maskNet)
+	# loop over the detected face locations and their corresponding
+	# locations
+	for (box, pred) in zip(locs, preds):
+		# unpack the bounding box and predictions
+		(startX, startY, endX, endY) = box
+		(mask, withoutMask) = pred
+
+		# determine the class label and color we'll use to draw
+		# the bounding box and text
+		if mask > withoutMask:
+			label = "Mask"
+			print("Mask")
+		else:
+			label = "No Mask"
+			print("No Mask")
+		# label = "Mask" if mask > withoutMask else "No Mask"
+		color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
+			
+		# include the probability in the label
+		label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
+
+		# display the label and bounding box rectangle on the output
+		# frame
+		cv2.putText(frame, label, (startX, startY - 10),
+			cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+		cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
+
 
 	# loop over the facial embeddings
 	for encoding in encodings:
