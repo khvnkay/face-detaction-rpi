@@ -6,6 +6,7 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 from imutils.video import VideoStream
+from imutils.video import FPS
 import numpy as np
 import argparse
 import imutils
@@ -109,7 +110,8 @@ maskNet = load_model(args["model"])
 print("[INFO] starting video stream...")
 vs = VideoStream(src=-1,framerate=10).start()
 time.sleep(2.0)
-
+# start the FPS counter
+fps = FPS().start()
 # loop over the frames from the video stream
 while True:
 	# grab the frame from the threaded video stream and resize it
