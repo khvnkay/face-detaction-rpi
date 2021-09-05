@@ -17,10 +17,10 @@ from picamera import PiCamera
 
 
 # initialize the camera and grab a reference to the raw camera capture
-camera = PiCamera()
-rawCapture = PiRGBArray(camera)
+# camera = PiCamera()
+# rawCapture = PiRGBArray(camera)
 # allow the camera to warmup
-time.sleep(0.1)
+# time.sleep(0.1)
 def detect_and_predict_mask(frame, faceNet, maskNet):
 	# grab the dimensions of the frame and then construct a blob
 	# from it
@@ -115,7 +115,7 @@ while True:
 	# grab the frame from the threaded video stream and resize it
 	# to have a maximum width of 400 pixels
 	frame = vs.read()
-	frame = imutils.resize(frame)
+	frame = imutils.resize(frame, width=500)
 
 	# detect faces in the frame and determine if they are wearing a
 	# face mask or not
