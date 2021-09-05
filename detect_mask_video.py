@@ -107,7 +107,7 @@ maskNet = load_model(args["model"])
 
 # initialize the video stream and allow the camera sensor to warm up
 print("[INFO] starting video stream...")
-vs = VideoStream(src=-1).start()
+vs = VideoStream(src=-1,framerate=10).start()
 time.sleep(2.0)
 
 # loop over the frames from the video stream
