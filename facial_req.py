@@ -92,6 +92,7 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
 	preds = []
 
 	# loop over the detections
+	print("loop----0")
 	for i in range(0, detections.shape[2]):
 		# extract the confidence (i.e., probability) associated with
 		# the detection
