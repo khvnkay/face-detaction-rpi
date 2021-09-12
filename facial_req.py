@@ -149,9 +149,9 @@ while True:
 	# compute the facial embeddings for each face bounding box
 	encodings = face_recognition.face_encodings(frame, boxes)
 	names = []
- print("detaction----0")
+	print("detaction----0")
 	(locs, preds) = detect_and_predict_mask(frame, faceNet, maskNet)
- 	print("detaction----1")
+	print("detaction----1")
 	# loop over the detected face locations and their corresponding
 	# locations
 	for (box, pred) in zip(locs, preds):
