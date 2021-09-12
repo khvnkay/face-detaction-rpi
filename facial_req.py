@@ -75,16 +75,17 @@ print("[INFO] loading face mask detector model...")
 maskNet = load_model(args["model"])
 
 def detect_and_predict_mask(frame, faceNet, maskNet):
+	print("start----0")
 	# grab the dimensions of the frame and then construct a blob
 	# from it
 	(h, w) = frame.shape[:2]
 	blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300),
 		(104.0, 177.0, 123.0))
-
+	print("start----1")
 	# pass the blob through the network and obtain the face detections
 	faceNet.setInput(blob)
 	detections = faceNet.forward()
-
+	print("start----2")
 	# initialize our list of faces, their corresponding locations,
 	# and the list of predictions from our face mask network
 	faces = []
