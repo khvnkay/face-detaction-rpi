@@ -76,18 +76,18 @@ print("[INFO] loading face mask detector model...")
 maskNet = load_model(args["model"])
 
 def detect_and_predict_mask(frame, faceNet, maskNet):
-	print("start----0")
+	# print("start----0")
 	# grab the dimensions of the frame and then construct a blob
 	# from it
 	(h, w) = frame.shape[:2]
 	# blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300),
 	# 	(104.0, 177.0, 123.0))
 	blob = cv2.dnn.blobFromImage(frame, size=(300, 300), swapRB=True)
-	print("start----1",blob)
+	# print("start----1",blob)
 	# pass the blob through the network and obtain the face detections
 	faceNet.setInput(blob)
 	detections = faceNet.forward()
-	print("start----2")
+	# print("start----2")
 	# initialize our list of faces, their corresponding locations,
 	# and the list of predictions from our face mask network
 	faces = []
@@ -95,7 +95,7 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
 	preds = []
 
 	# loop over the detections
-	print("loop----0")
+	# print("loop----0")
 	for i in range(0, detections.shape[2]):
 		# extract the confidence (i.e., probability) associated with
 		# the detection
@@ -153,9 +153,9 @@ while True:
 	# compute the facial embeddings for each face bounding box
 	encodings = face_recognition.face_encodings(frame, boxes)
 	names = []
-	print("detaction----0")
+	# print("detaction----0")
 	(locs, preds) = detect_and_predict_mask(frame, faceNet, maskNet)
-	print("detaction----1")
+	# print("detaction----1")
 	# loop over the detected face locations and their corresponding
 	# locations
 	for (box, pred) in zip(locs, preds):
