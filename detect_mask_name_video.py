@@ -49,7 +49,7 @@ def findEncodings(images):
 # encodeListKnown = findEncodings(images)
 print('Encoding Complete')
 
-# ---------- working only tag name
+
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
