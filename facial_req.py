@@ -13,6 +13,7 @@ import time
 import cv2
 import os
 import argparse
+import numpy as np
 
 #Initialize 'currentname' to trigger only when a new person is identified.
 currentname = "unknown"
