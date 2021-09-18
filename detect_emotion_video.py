@@ -11,16 +11,16 @@ from keras.preprocessing.image import img_to_array
 from keras.preprocessing import image
 import cv2
 import numpy as np
-from imutils.video import VideoStream
-from imutils.video import FPS
+# from imutils.video import VideoStream
+# from imutils.video import FPS
 
 face_classifier = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
 classifier =load_model('./Emotion_Detection.h5')
 
 class_labels = ['Angry','Happy','Neutral','Sad','Surprise']
 
-# cap = cv2.VideoCapture(0)
-cap = VideoStream(src=-1,framerate=10).start()
+cap = cv2.VideoCapture(0)
+# cap = VideoStream(src=-1,framerate=10).start()
 
 
 while True:
