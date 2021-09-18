@@ -35,4 +35,5 @@ for (x,y,w,h) in faces:
     cv2.rectangle(image,(x,y),(x+w,y+h),(255,255,0),4)
 
 #Save the result image
-cv2.imwrite('result.jpg',image)
+# cv2.imwrite('result.jpg',image)
+cv2.imshow('Emotion Detector',image)
